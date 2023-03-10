@@ -1,8 +1,7 @@
 <?php
-$page = $_GET['page'];
 switch ($page) {
     case 0:
-        echo "login";
+        require_once("login.php");
         break;
     case 1:
         echo "attività didattiche";
