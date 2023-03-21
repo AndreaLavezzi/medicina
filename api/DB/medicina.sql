@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 10, 2023 alle 10:53
--- Versione del server: 10.4.27-MariaDB
--- Versione PHP: 8.0.25
+-- Creato il: Mar 17, 2023 alle 18:07
+-- Versione del server: 10.4.24-MariaDB
+-- Versione PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,18 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `formativa_didattica` (
-  `formativa` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `didattica` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `formativa` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `didattica` varchar(6) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `formativa_didattica`
 --
 
 INSERT INTO `formativa_didattica` (`formativa`, `didattica`) VALUES
+('12', '1267'),
+('500134', '500130'),
+('500134', '501680'),
 ('500161', '500436'),
-('500161', '501680'),
-('500191', '500130'),
 ('500191', '500131'),
 ('500191', '500431'),
 ('500191', '500434'),
@@ -164,27 +165,32 @@ INSERT INTO `formativa_didattica` (`formativa`, `didattica`) VALUES
 --
 
 CREATE TABLE `piano_di_studi` (
-  `codice` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `nome` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `codice` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `nome` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `CFU` int(11) DEFAULT NULL,
-  `settore` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `settore` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `n_settore` int(11) DEFAULT NULL,
-  `TAF_Ambito` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `TAF_Ambito` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
   `ore_lezione` int(11) DEFAULT NULL,
   `ore_laboratorio` int(11) DEFAULT NULL,
   `ore_tirocinio` int(11) DEFAULT NULL,
-  `tipo_insegnamento` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `tipo_insegnamento` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `semestre` int(11) DEFAULT NULL,
-  `descrizione_semestre` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `descrizione_semestre` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `anno1` int(11) DEFAULT NULL,
   `anno2` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `piano_di_studi`
 --
 
 INSERT INTO `piano_di_studi` (`codice`, `nome`, `CFU`, `settore`, `n_settore`, `TAF_Ambito`, `ore_lezione`, `ore_laboratorio`, `ore_tirocinio`, `tipo_insegnamento`, `semestre`, `descrizione_semestre`, `anno1`, `anno2`) VALUES
+('111', 'asd', 11, 'ee', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('12', 'weee', 123, 'we', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('123', 'eqwe', 12, 'sde', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('1267', 'e', 15, 'e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('145', 'asd', 23, 's', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('500000', 'PROVA FINALE', 18, 'PROFIN_S', NULL, 'Lingua/Prova Finale / Per la prova finale', 144, NULL, NULL, 'Obbligatorio', 2, 'Secondo Semestre', 6, NULL),
 ('500026', 'STATISTICA', 5, 'MED', 1, 'Caratterizzante / Inglese scientifico e\nabilità linguistiche, informatiche e relazionali, pedagogia medica,\ntecnologie avanzate e a distanza di informazione e comunicazione', 40, NULL, NULL, 'Obbligatorio', 0, '', 2, NULL),
 ('500124', 'ECONOMIA AZIENDALE', 1, 'SECS-P', 7, 'Caratterizzante / Scienze umane, politiche\ndella salute e management sanitario', 8, NULL, NULL, 'Obbligatorio', 0, '', 2, NULL),
@@ -377,6 +383,45 @@ INSERT INTO `piano_di_studi` (`codice`, `nome`, `CFU`, `settore`, `n_settore`, `
 ('510456', 'IGIENE E MEDICINA DI COMUNITA’', 4, 'MED', 42, 'Caratterizzante / Fisiopatologia,\nmetodologia clinica, propedeutica clinica e sistematica medico-chirurgica', 32, NULL, NULL, 'Obbligatorio', 0, '', 3, NULL),
 ('510457', 'ECONOMIA AZIENDALE', 1, 'SECS-P', 7, 'Caratterizzante / Scienze umane, politiche\ndella salute e management sanitario', 8, NULL, NULL, 'Obbligatorio', 0, '', 3, NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `ruolo`
+--
+
+CREATE TABLE `ruolo` (
+  `id` int(11) NOT NULL,
+  `descr` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `ruolo`
+--
+
+INSERT INTO `ruolo` (`id`, `descr`) VALUES
+(1, 'admin'),
+(2, 'user');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `utente`
+--
+
+CREATE TABLE `utente` (
+  `id` int(11) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `passwd` varchar(120) NOT NULL,
+  `ruolo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `utente`
+--
+
+INSERT INTO `utente` (`id`, `email`, `passwd`, `ruolo`) VALUES
+(1, 'admin@gmail.com', 'admin', 1);
+
 --
 -- Indici per le tabelle scaricate
 --
@@ -393,6 +438,34 @@ ALTER TABLE `formativa_didattica`
 --
 ALTER TABLE `piano_di_studi`
   ADD PRIMARY KEY (`codice`);
+
+--
+-- Indici per le tabelle `ruolo`
+--
+ALTER TABLE `ruolo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `utente`
+--
+ALTER TABLE `utente`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT per le tabelle scaricate
+--
+
+--
+-- AUTO_INCREMENT per la tabella `ruolo`
+--
+ALTER TABLE `ruolo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT per la tabella `utente`
+--
+ALTER TABLE `utente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Limiti per le tabelle scaricate
