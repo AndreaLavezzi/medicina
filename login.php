@@ -1,7 +1,7 @@
 <?php
 require("api/COMMON/connect.php");
 require("api/MODEL/utente.php");
-if(isset($_SESSION['userID'])){
+if (isset($_SESSION['userID'])) {
   header('Location: http://localhost/medicina/index.php?page=5');
 }
 
@@ -12,16 +12,20 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   $db = new Database();
   $db_conn = $db->connect();
   $user = new User($db_conn);
-  $result = $user->login($email, $password);
-  $data = $result->fetch_assoc();
 
-  if ($result != false) {
-    $_SESSION['userID'] = $data['id'];
-    $_SESSION['userRole'] = $data['ruolo'];
-    header('Location: http://localhost/medicina/index.php?page=5');
-  } else {
-    echo ("no token");
+  $result = $user->login($email, $password);
+  
+  while ($row = $result->fetch_assoc()) {
+    if ($row['email'] == $email && $row['passwd'] == $password) {
+      $_SESSION['userID'] = $row['id'];
+      $_SESSION['userRole'] = $row['ruolo'];
+      header('Location: http://localhost/medicina/index.php?page=5');
+      break;
+    }
   }
+  ;
+
+  echo ("no token");
 }
 ?>
 

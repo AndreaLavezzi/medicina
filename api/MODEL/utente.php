@@ -6,7 +6,7 @@ class User extends BaseController{
     {
         $sql = sprintf("SELECT id, email, passwd, ruolo
         FROM `utente`
-        where 1=1 ");
+        where 1 = 1");
         $result = $this->conn->query($sql);
         
 
