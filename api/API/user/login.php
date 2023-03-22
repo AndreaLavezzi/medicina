@@ -1,4 +1,5 @@
 <?php
+//STA ROBA E' INUTILE
     require("../../COMMON/connect.php");
     require("../../MODEL/utente.php");
 

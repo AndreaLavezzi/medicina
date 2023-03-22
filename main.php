@@ -15,6 +15,12 @@ switch ($page) {
     case 4:
         echo "edit unità";
         break;
+    case 5:
+        require_once("homepage.php");
+        break;
+    case 99:
+        require_once("logout.php");
+        break;
     default:
         include("content-404.php");
         break;
